@@ -1,0 +1,19 @@
+// LED Blink Example for Arduino Uno
+
+// Define LED pin
+const int ledPin = 13;
+
+void setup() {
+  // Set the LED pin as output
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  // Turn the LED on (HIGH is the voltage level)
+  digitalWrite(ledPin, HIGH);
+  delay(1000); // Wait for 1 second
+
+  // Turn the LED off by making the voltage LOW
+  digitalWrite(ledPin, LOW);
+  delay(1000); // Wait for 1 second
+}
