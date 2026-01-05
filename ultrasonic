@@ -1,0 +1,57 @@
+int buzzpin = 7;
+int trigPin = 6;
+int echoPin = A0;
+int IRPin=A1;
+int IRV;
+const int ledPin=13;
+int sensorValue = 0;
+
+int duration, distance;
+
+void setup()
+{
+  pinMode(trigPin, OUTPUT);
+  pinMode(buzzpin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  pinMode (IRPin, INPUT);
+  pinMode (ledPin,OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  duration = pulseIn(echoPin, HIGH);
+  distance = duration * 0.034 / 2;
+  Serial.print("Distance in cm is: ");
+  Serial.println(distance);
+  if (distance < 20)
+  {
+    digitalWrite(buzzpin, HIGH);
+  }
+  else
+  {
+    digitalWrite(buzzpin, LOW);
+  }
+  delay(100);
+ sensorValue = analogRead(IRPin);   // Read analog value from IR sensor
+
+  Serial.print("IR Sensor Value: ");
+  Serial.println(sensorValue);
+
+  // Threshold for darkness/brightness
+  // Adjust 500 depending on your sensor output
+  if (sensorValue < 500) {
+    Serial.println("Brightness Detected");
+    digitalWrite(ledPin, LOW);    // LED OFF in brightness
+  }
+  else {
+    Serial.println("Darkness Detected");
+    digitalWrite(ledPin, HIGH);   // LED ON in darkness
+  }
+  delay(500);
+}
